@@ -82,4 +82,3 @@ class homeActivity extends StatelessWidget{
 }
 
 
-//that is my code, update the code so the "my phone name and your phone name " text come in single line
