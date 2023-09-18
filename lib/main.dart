@@ -92,11 +92,11 @@ class PhotoGalleryScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: NetworkImage(
                       'https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
-                    ), // Replace with your image URL
+                    ), 
                   ),
                 ),
               ),
-              title: Text('Image 1'), // Replace with your own title
+              title: Text('Image 1'), 
               subtitle: Text('title and subtitle.'),
             ),
             ListTile(
@@ -109,11 +109,11 @@ class PhotoGalleryScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: NetworkImage(
                       'https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
-                    ), // Replace with your image URL
+                    ), 
                   ),
                 ),
               ),
-              title: Text('Image 2'), // Replace with your own title
+              title: Text('Image 2'), 
               subtitle: Text('title and subtitle.'),
             ),
             ListTile(
@@ -126,11 +126,11 @@ class PhotoGalleryScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                     image: NetworkImage(
                       'https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
-                    ), // Replace with your image URL
+                    ), 
                   ),
                 ),
               ),
-              title: Text('Image 3'), // Replace with your own title
+              title: Text('Image 3'),
               subtitle: Text('title and subtitle.'),
             ),
             Center(
@@ -146,7 +146,7 @@ class PhotoGalleryScreen extends StatelessWidget {
                   },
 
                   child: Icon(Icons.upload,
-                      size: 35), // Use a valid Flutter icon here
+                      size: 35), 
                 ),
               ),
             ),
