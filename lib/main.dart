@@ -44,8 +44,6 @@ class PhotoGalleryScreen extends StatelessWidget {
                 decoration: InputDecoration(
                   labelText: 'Search for photos here...',
                   border: OutlineInputBorder(),
-
-
                 ),
               ),
             ),
@@ -67,7 +65,6 @@ class PhotoGalleryScreen extends StatelessWidget {
                     );
                   },
                   child: Container(
-
                     child: Column(
                       children: [
                         Image.network(
@@ -93,7 +90,8 @@ class PhotoGalleryScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage('https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
+                    image: NetworkImage(
+                      'https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
                     ), // Replace with your image URL
                   ),
                 ),
@@ -101,7 +99,6 @@ class PhotoGalleryScreen extends StatelessWidget {
               title: Text('Image 1'), // Replace with your own title
               subtitle: Text('title and subtitle.'),
             ),
-
             ListTile(
               leading: Container(
                 width: 50,
@@ -110,7 +107,8 @@ class PhotoGalleryScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage('https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
+                    image: NetworkImage(
+                      'https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
                     ), // Replace with your image URL
                   ),
                 ),
@@ -126,7 +124,8 @@ class PhotoGalleryScreen extends StatelessWidget {
                   shape: BoxShape.circle,
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage('https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
+                    image: NetworkImage(
+                      'https://t4.ftcdn.net/jpg/05/62/99/31/360_F_562993122_e7pGkeY8yMfXJcRmclsoIjtOoVDDgIlh.jpg',
                     ), // Replace with your image URL
                   ),
                 ),
@@ -146,8 +145,8 @@ class PhotoGalleryScreen extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(snackBar);
                   },
 
-
-                  child: Icon(Icons.upload, size: 35), // Use a valid Flutter icon here
+                  child: Icon(Icons.upload,
+                      size: 35), // Use a valid Flutter icon here
                 ),
               ),
             ),
