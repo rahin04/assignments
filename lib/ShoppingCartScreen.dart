@@ -60,7 +60,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                   cartItems[index].imageUrl,
                   width: 60.0,
                   height: 60.0,
-                  fit: BoxFit.cover,
+                  //fit: BoxFit.cover,
                 ),
               ),
               title: Text(cartItems[index].name),
