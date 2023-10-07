@@ -131,7 +131,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
                         content: Text(
-                            'Congratulations!'),
+                            'Congratulations!, your order is placed!'),
                       ),
                     );
                   },
