@@ -1,77 +1,168 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class SizeSelectionScreen extends StatefulWidget {
+class ShoppingCartScreen extends StatefulWidget {
   @override
-  _SizeSelectionScreenState createState() => _SizeSelectionScreenState();
+  _ShoppingCartScreenState createState() => _ShoppingCartScreenState();
 }
 
-class _SizeSelectionScreenState extends State<SizeSelectionScreen> {
-  String selectedSize = "";
-  GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
+class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
+  List<Item> cartItems = [
+    Item('Polo', 'Black', 'L', 51.0, 1,
+        'https://circleback.s3.ap-southeast-1.amazonaws.com/uploads/all/jlIueDtnyIOcyeCydn12xSvHzixujruA0jZ9VLME.png'),
+    Item('T-Shirt', 'Gray', 'L', 30.0, 1,
+        'https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1686343279-img-3725-jpg-64838e65a46b3.jpg?crop=0.7265211640211641xw:1xh;center,top&resize=980:*'),
+    Item('Sport Dress', 'Black', 'M', 43.0, 1,
+        'https://image.made-in-china.com/43f34j00HKQabdLrOspt/Black-Men-Sports-Wear-with-Sleeve-Various-Lines.webp'),
+  ];
 
-  void showSnackbar(String size) {
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text("Selected Size: $size"),
-      ),
-    );
-  }
-
-  void selectSize(String size) {
-    setState(() {
-      selectedSize = size;
-    });
-    showSnackbar(size);
-  }
-
-  Color getButtonColor(String size) {
-    return size == selectedSize ? Colors.yellow : Colors.grey;
+  double totalAmount() {
+    double total = 0;
+    for (int i=0; i<cartItems.length;i++) {
+      total += cartItems[i].price * cartItems[i].quantity;
+    }
+    return total;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: scaffoldKey,
       appBar: AppBar(
-        title: Text("Size Selection"),
+        elevation: 0,
+        backgroundColor: Colors.white,
+        title: Text(
+          'My Bag',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.search,
+              color: Colors.black,
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
-      body: Center(
-        child: ButtonBar(
-          alignment: MainAxisAlignment.center,
+      body: ListView.builder(
+        itemCount: cartItems.length,
+        itemBuilder: (context, index) {
+          return Card(
+            elevation: 5.0,
+            margin: EdgeInsets.all(8.0),
+            child: ListTile(
+              leading: Container(
+                width: 80.0,
+                child: Image.network(
+                  cartItems[index].imageUrl,
+                  width: 60.0,
+                  height: 60.0,
+                  fit: BoxFit.cover,
+                ),
+              ),
+              title: Text(cartItems[index].name),
+              subtitle: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      'Color: ${cartItems[index].color}  Size: ${cartItems[index].size}'),
+                  Row(
+                    children: [
+                      IconButton(
+                        icon: Icon(Icons.remove),
+                        onPressed: () {
+                          setState(() {
+                            if (cartItems[index].quantity > 1) {
+                              cartItems[index].quantity--;
+                            }
+                          });
+                        },
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(cartItems[index].quantity.toString()),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.add),
+                        onPressed: () {
+                          setState(() {
+                            cartItems[index].quantity++;
+                          });
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              trailing: Text(
+                  '\$${(cartItems[index].price * cartItems[index].quantity).toStringAsFixed(2)}'),
+            ),
+          );
+        },
+      ),
+      bottomNavigationBar: BottomAppBar(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          // Ensure the Column takes minimum space
           children: [
-            ElevatedButton(
-              onPressed: () => selectSize("S"),
-              style: ElevatedButton.styleFrom(backgroundColor: getButtonColor("S")),
-              child: Text("S"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                children: [
+                  Text('Total Amount:'),
+                  Spacer(),
+                  Text("\$${totalAmount().toStringAsFixed(2)}"),
+                ],
+              ),
             ),
-            ElevatedButton(
-              onPressed: () => selectSize("M"),
-              style: ElevatedButton.styleFrom(backgroundColor: getButtonColor("M")),
-              child: Text("M"),
-            ),
-            ElevatedButton(
-              onPressed: () => selectSize("L"),
-              style: ElevatedButton.styleFrom(backgroundColor: getButtonColor("L")),
-              child: Text("L"),
-            ),
-            ElevatedButton(
-              onPressed: () => selectSize("XL"),
-              style: ElevatedButton.styleFrom(backgroundColor: getButtonColor("XL")),
-              child: Text("XL"),
-            ),
-            ElevatedButton(
-              onPressed: () => selectSize("XXL"),
-              style: ElevatedButton.styleFrom(backgroundColor: getButtonColor("XXL")),
-              child: Text("XXL"),
-            ),
-            ElevatedButton(
-              onPressed: () => selectSize("XXXL"),
-              style: ElevatedButton.styleFrom(backgroundColor: getButtonColor("XXXL")),
-              child: Text("XXXL"),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {
+
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        content: Text(
+                            'Congratulations!'),
+                      ),
+                    );
+                  },
+                  child: Text(
+                    'CHECK OUT',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(50.0),
+                    ),
+                    backgroundColor: Colors.red,
+                  ),
+                ),
+              ),
             ),
           ],
         ),
       ),
     );
   }
+}
+
+class Item {
+  final String name;
+  final String color;
+  final String size;
+  final double price;
+  int quantity;
+  final String imageUrl;
+
+  Item(this.name, this.color, this.size, this.price, this.quantity,
+      this.imageUrl);
 }
