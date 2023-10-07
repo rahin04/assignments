@@ -109,7 +109,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
       bottomNavigationBar: BottomAppBar(
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          // Ensure the Column takes minimum space
+         
           children: [
             Padding(
               padding: const EdgeInsets.all(8.0),
