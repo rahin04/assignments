@@ -18,7 +18,7 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
 
   double totalAmount() {
     double total = 0;
-    for (int i=0; i<cartItems.length;i++) {
+    for (int i = 0; i < cartItems.length; i++) {
       total += cartItems[i].price * cartItems[i].quantity;
     }
     return total;
@@ -47,109 +47,111 @@ class _ShoppingCartScreenState extends State<ShoppingCartScreen> {
           ),
         ],
       ),
-      body: ListView.builder(
-        itemCount: cartItems.length,
-        itemBuilder: (context, index) {
-          return Card(
-            elevation: 5.0,
-            margin: EdgeInsets.all(8.0),
-            child: ListTile(
-              leading: Container(
-                width: 80.0,
-                child: Image.network(
-                  cartItems[index].imageUrl,
-                  width: 60.0,
-                  height: 60.0,
-                  //fit: BoxFit.cover,
-                ),
-              ),
-              title: Text(cartItems[index].name),
-              subtitle: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                      'Color: ${cartItems[index].color}  Size: ${cartItems[index].size}'),
-                  Row(
+      body: OrientationBuilder(
+        builder: (context, orientation) {
+          return ListView.builder(
+            itemCount: cartItems.length,
+            itemBuilder: (context, index) {
+              return Card(
+                elevation: 5.0,
+                margin: EdgeInsets.all(8.0),
+                child: ListTile(
+                  leading: SizedBox(
+                    width: orientation == Orientation.portrait ? 80.0 : 120.0,
+                    height: orientation == Orientation.portrait ? 80.0 : 120.0,
+                    child: Image.network(
+                      cartItems[index].imageUrl,
+                      width: orientation == Orientation.portrait ? 80.0 : 120.0,
+                      height:
+                          orientation == Orientation.portrait ? 80.0 : 120.0,
+                    ),
+                  ),
+                  title: Text(cartItems[index].name),
+                  subtitle: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      IconButton(
-                        icon: Icon(Icons.remove),
-                        onPressed: () {
-                          setState(() {
-                            if (cartItems[index].quantity > 1) {
-                              cartItems[index].quantity--;
-                            }
-                          });
-                        },
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(cartItems[index].quantity.toString()),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      IconButton(
-                        icon: Icon(Icons.add),
-                        onPressed: () {
-                          setState(() {
-                            cartItems[index].quantity++;
-                          });
-                        },
+                      Text(
+                          'Color: ${cartItems[index].color}  Size: ${cartItems[index].size}'),
+                      Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(Icons.remove),
+                            onPressed: () {
+                              setState(() {
+                                if (cartItems[index].quantity > 1) {
+                                  cartItems[index].quantity--;
+                                }
+                              });
+                            },
+                          ),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          Text(cartItems[index].quantity.toString()),
+                          SizedBox(
+                            width: 5,
+                          ),
+                          IconButton(
+                            icon: Icon(Icons.add),
+                            onPressed: () {
+                              setState(() {
+                                cartItems[index].quantity++;
+                              });
+                            },
+                          ),
+                        ],
                       ),
                     ],
                   ),
-                ],
-              ),
-              trailing: Text(
-                  '\$${(cartItems[index].price * cartItems[index].quantity).toStringAsFixed(2)}'),
-            ),
+                  trailing: Text(
+                      '\$${(cartItems[index].price * cartItems[index].quantity).toStringAsFixed(2)}'),
+                ),
+              );
+            },
           );
         },
       ),
-      bottomNavigationBar: BottomAppBar(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-         
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                children: [
-                  Text('Total Amount:'),
-                  Spacer(),
-                  Text("\$${totalAmount().toStringAsFixed(2)}"),
-                ],
-              ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Text('Total Amount:'),
+                Spacer(),
+                Text("\$${totalAmount().toStringAsFixed(2)}"),
+              ],
             ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: SizedBox(
-                width: double.infinity,
-                child: ElevatedButton(
-                  onPressed: () {
-
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                        content: Text(
-                            'Congratulations!, your order is placed!'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      content: Text(
+                        'Congratulations!',
                       ),
-                    );
-                  },
-                  child: Text(
-                    'CHECK OUT',
-                    style: TextStyle(color: Colors.white),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(50.0),
                     ),
-                    backgroundColor: Colors.red,
+                  );
+                },
+                child: Text(
+                  'CHECK OUT',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
                   ),
+                  backgroundColor: Colors.red,
                 ),
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
